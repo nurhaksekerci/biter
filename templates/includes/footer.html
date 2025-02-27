@@ -1,0 +1,161 @@
+{% load static %}
+<!-- Footer -->
+<footer>
+  <!-- Newsletter -->
+  <div class="newsletter-area">
+    <div class="container">
+      <img src="{% static 'assets/img/home-one/footer.png' %}" alt="Shape" />
+      <h2>Bültenimize Abone Olun</h2>
+      <form class="newsletter-form" data-toggle="validator">
+        <input type="email" class="form-control" placeholder="E-posta Adresiniz" name="EMAIL" required autocomplete="off" />
+        <button class="btn contact-btn" type="submit">Abone Ol</button>
+        <div id="validator-newsletter" class="form-result"></div>
+      </form>
+    </div>
+  </div>
+  <!-- End Newsletter -->
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-lg-4">
+        <div class="footer-item">
+          <div class="footer-logo">
+            <a href="{% url 'webui:index' %}"><img src="{% static 'assets/img/logo.png' %}" alt="Logo" /></a>
+            <p>Profesyonel avukat ekibimiz her zaman size en iyi ve verimli hizmeti sunmak için burada. Firmamız ve hizmetlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.</p>
+            <ul>
+              <li>
+                <a href="https://www.youtube.com/" target="_blank"><i class="icofont-youtube-play"></i></a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/" target="_blank"><i class="icofont-facebook"></i></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" target="_blank"><i class="icofont-instagram"></i></a>
+              </li>
+              <li>
+                <a href="https://www.twitter.com/" target="_blank"><i class="icofont-twitter"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="footer-item">
+          <div class="footer-service">
+            <h3>Hizmetlerimiz</h3>
+            <ul>
+              <li>
+                <a href="{% url 'webui:practice_details' id=1 %}">
+                  <i class="icofont-simple-right"></i>
+                  Aile Hukuku
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:practice_details' id=2 %}">
+                  <i class="icofont-simple-right"></i>
+                  Eğitim Hukuku
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:practice_details' id=3 %}">
+                  <i class="icofont-simple-right"></i>
+                  Medeni Hukuk
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:practice_details' id=4 %}">
+                  <i class="icofont-simple-right"></i>
+                  Ceza Hukuku
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:practice_details' id=5 %}">
+                  <i class="icofont-simple-right"></i>
+                  Ticaret Hukuku
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <div class="footer-item">
+          <div class="footer-service">
+            <h3>Hızlı Bağlantılar</h3>
+            <ul>
+              <li>
+                <a href="{% url 'webui:index' %}">
+                  <i class="icofont-simple-right"></i>
+                  Ana Sayfa
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:about' %}">
+                  <i class="icofont-simple-right"></i>
+                  Hakkımızda
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:blog' %}">
+                  <i class="icofont-simple-right"></i>
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:attorney' %}">
+                  <i class="icofont-simple-right"></i>
+                  Ekibimiz
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'webui:contact' %}">
+                  <i class="icofont-simple-right"></i>
+                  İletişim
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="footer-item">
+          <div class="footer-find">
+            <h3>Bize Ulaşın</h3>
+            <ul>
+              <li>
+                <i class="icofont-location-pin"></i>
+                Bahçelievler Mah. 52. Sk. No: 15/4 Çankaya/ANKARA
+              </li>
+              <li>
+                <i class="icofont-ui-call"></i>
+                <a href="tel:+905414640663">+90 541 464 0663</a>
+              </li>
+              <li>
+                <i class="icofont-at"></i>
+                <a href="mailto:info@hukukburosu.com">info@hukukburosu.com</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-area">
+      <div class="row justify-content-center">
+        <div class="col-sm-7 col-lg-6">
+          <div class="copyright-item">
+            <p>
+              ©{% now 'Y' %}Tüm Hakları Saklıdır.
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-5 col-lg-6">
+          <div class="copyright-item copyright-right">
+            <a href="{% url 'webui:terms_conditions' %}" target="_blank">Kullanım Koşulları</a> <span>-</span>
+            <a href="{% url 'webui:privacy' %}" target="_blank">Gizlilik Politikası</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->

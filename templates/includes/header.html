@@ -1,0 +1,46 @@
+{% load static %}
+<!-- Navbar -->
+<div class="navbar-area fixed-top">
+  <!-- Menu For Mobile Device -->
+  <div class="mobile-nav">
+    <a href="{% url 'webui:index' %}" class="logo"><img src="{% static 'assets/img/logo.png' %}" alt="Logo" /></a>
+  </div>
+
+  <!-- Menu For Desktop Device -->
+  <div class="main-nav">
+    <div class="container">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand" href="{% url 'webui:index' %}"><img src="{% static 'assets/img/logo.png' %}" alt="Logo" /></a>
+        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="{% url 'webui:index' %}" class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">Ana Sayfa</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">Hakkımızda</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'attorney' %}active{% endif %}">Avukatlarımız</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'practice' %}active{% endif %}">Uzmanlık Alanları</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'case_study' %}active{% endif %}">Örnek Davalar</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">İletişim</a>
+            </li>
+          </ul>
+          <div class="side-nav">
+            <a href="{% url 'webui:not_found' %}">Randevu Al</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- End Navbar -->
