@@ -1,0 +1,149 @@
+{% extends "webui/management/base.html" %}
+
+{% block management_content %}
+<div class="row">
+    <!-- Banner İstatistikleri -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon">
+                    <i class="icofont-image"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>{{ banner_count }}</h3>
+                    <p>Banner</p>
+                </div>
+            </div>
+            <a href="{% url 'webui:banner_list' %}" class="stat-card-link">
+                Yönet <i class="icofont-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Uzmanlık Alanları İstatistikleri -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon">
+                    <i class="icofont-law-book"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>{{ practice_count }}</h3>
+                    <p>Uzmanlık Alanı</p>
+                </div>
+            </div>
+            <a href="{% url 'webui:practice_list' %}" class="stat-card-link">
+                Yönet <i class="icofont-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Avukat İstatistikleri -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon">
+                    <i class="icofont-lawyer"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>{{ lawyer_count }}</h3>
+                    <p>Avukat</p>
+                </div>
+            </div>
+            <a href="{% url 'webui:lawyer_list' %}" class="stat-card-link">
+                Yönet <i class="icofont-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog İstatistikleri -->
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="stat-card">
+            <div class="stat-card-body">
+                <div class="stat-card-icon">
+                    <i class="icofont-blog"></i>
+                </div>
+                <div class="stat-card-info">
+                    <h3>{{ blog_count }}</h3>
+                    <p>Blog Yazısı</p>
+                </div>
+            </div>
+            <a href="{% url 'webui:blog_list' %}" class="stat-card-link">
+                Yönet <i class="icofont-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.stat-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+}
+
+.stat-card-body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-card-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(182, 157, 116, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card-icon i {
+    font-size: 30px;
+    color: #b69d74;
+}
+
+.stat-card-info h3 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+}
+
+.stat-card-info p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.stat-card-link {
+    display: block;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-top: 1px solid #eee;
+}
+
+.stat-card-link:hover {
+    background: #b69d74;
+    color: #fff;
+}
+
+.stat-card-link i {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.stat-card-link:hover i {
+    transform: translateX(5px);
+}
+</style>
+{% endblock %} 

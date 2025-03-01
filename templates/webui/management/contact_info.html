@@ -1,0 +1,138 @@
+{% extends "webui/management/base.html" %}
+
+{% block management_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>İletişim Bilgileri</h3>
+    {% if info %}
+        <a href="{% url 'webui:contact_info_edit' %}" class="cmn-btn">
+            <i class="icofont-edit"></i> Düzenle
+        </a>
+    {% else %}
+        <a href="{% url 'webui:contact_info_edit' %}" class="cmn-btn">
+            <i class="icofont-plus"></i> Bilgileri Ekle
+        </a>
+    {% endif %}
+</div>
+
+{% if info %}
+<div class="contact-info-card">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-group">
+                <label>Adres</label>
+                <p>{{ info.address|linebreaks }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-group">
+                <label>Harita URL</label>
+                <p>
+                    <a href="{{ info.map_url }}" target="_blank">
+                        {{ info.map_url }}
+                        <i class="icofont-external-link"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="info-group">
+                <label>E-posta Adresleri</label>
+                <p>
+                    <i class="icofont-email"></i> {{ info.email1 }}<br>
+                    {% if info.email2 %}
+                        <i class="icofont-email"></i> {{ info.email2 }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="info-group">
+                <label>Telefon Numaraları</label>
+                <p>
+                    <i class="icofont-phone"></i> {{ info.phone1 }}<br>
+                    {% if info.phone2 %}
+                        <i class="icofont-phone"></i> {{ info.phone2 }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="info-group">
+                <label>Durum</label>
+                <p>
+                    {% if info.is_active %}
+                        <span class="badge bg-success">Aktif</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Pasif</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <i class="icofont-info-circle"></i>
+    Henüz iletişim bilgisi eklenmemiş. Eklemek için yukarıdaki butonu kullanabilirsiniz.
+</div>
+{% endif %}
+
+<style>
+.contact-info-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.info-group {
+    margin-bottom: 20px;
+}
+
+.info-group:last-child {
+    margin-bottom: 0;
+}
+
+.info-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.info-group p {
+    margin: 0;
+    color: #666;
+}
+
+.info-group a {
+    color: #b69d74;
+    text-decoration: none;
+}
+
+.info-group a:hover {
+    text-decoration: underline;
+}
+
+.info-group i {
+    margin-right: 5px;
+    color: #b69d74;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert i {
+    font-size: 24px;
+}
+</style>
+{% endblock %} 

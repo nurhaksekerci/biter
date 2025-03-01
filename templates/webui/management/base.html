@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-title-area title-bg-one">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>{{ title }}</h2>
+                    <ul>
+                        <li><a href="{% url 'webui:index' %}">Ana Sayfa</a></li>
+                        <li><a href="{% url 'webui:management_dashboard' %}">Yönetim</a></li>
+                        <li><span>{{ title }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="management-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="management-sidebar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu == 'banner' %}active{% endif %}" 
+                               href="{% url 'webui:banner_list' %}">
+                                <i class="icofont-image"></i> Banner Yönetimi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu == 'practice' %}active{% endif %}"
+                               href="{% url 'webui:practice_list' %}">
+                                <i class="icofont-law-book"></i> Uzmanlık Alanları
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu == 'lawyer' %}active{% endif %}"
+                               href="{% url 'webui:lawyer_list' %}">
+                                <i class="icofont-lawyer"></i> Avukatlar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu == 'blog' %}active{% endif %}"
+                               href="{% url 'webui:blog_list' %}">
+                                <i class="icofont-pen"></i> Blog Yazıları
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_menu == 'contact' %}active{% endif %}"
+                               href="{% url 'webui:contact_info' %}">
+                                <i class="icofont-contacts"></i> İletişim Bilgileri
+                            </a>
+                        </li>
+                        <li class="nav-item {% if active_menu == 'case' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'webui:case_list' %}">
+                                <i class="icofont-law-order"></i>
+                                <span>Örnek Davalar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-9">
+                <div class="management-content">
+                    {% block management_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.management-sidebar {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.management-sidebar .nav-link {
+    color: #333;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.management-sidebar .nav-link i {
+    margin-right: 8px;
+    color: #b69d74;
+}
+
+.management-sidebar .nav-link:hover,
+.management-sidebar .nav-link.active {
+    background: #b69d74;
+    color: #fff;
+}
+
+.management-sidebar .nav-link:hover i,
+.management-sidebar .nav-link.active i {
+    color: #fff;
+}
+
+.management-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background: #b69d74;
+}
+
+.btn-edit:hover {
+    background: #a38a61;
+    color: #fff;
+}
+
+.btn-delete {
+    background: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    color: #fff;
+}
+
+.table th {
+    background: #f8f9fa;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.preview-image {
+    max-width: 100px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+</style>
+{% endblock %} 

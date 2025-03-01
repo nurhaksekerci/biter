@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-title-area title-bg-one">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>Mesaj Yanıtla</h2>
+                    <ul>
+                        <li><a href="{% url 'webui:index' %}">Ana Sayfa</a></li>
+                        <li><a href="{% url 'webui:message_list' %}">İletişim Formları</a></li>
+                        <li><span>Yanıtla</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="response-area ptb-100">
+    <div class="container">
+        <div class="response-content">
+            <div class="message-details mb-4 text-dark">
+                <h3>Mesaj Detayları</h3>
+                <dl>
+                    <dt>Gönderen:</dt>
+                    <dd>{{ contact_form.name }} ({{ contact_form.email }})</dd>
+                    
+                    <dt>Telefon:</dt>
+                    <dd>{{ contact_form.phone }}</dd>
+                    
+                    <dt>Konu:</dt>
+                    <dd>{{ contact_form.subject }}</dd>
+                    
+                    <dt>Tarih:</dt>
+                    <dd>{{ contact_form.created_at|date:"d.m.Y H:i" }}</dd>
+                    
+                    <dt>Mesaj:</dt>
+                    <dd>{{ contact_form.message|linebreaks }}</dd>
+                </dl>
+            </div>
+
+            <div class="response-form">
+                <h3>Yanıt Formu</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="template">Şablon Seç:</label>
+                        <select class="form-control" id="template" onchange="loadTemplate()">
+                            <option value="">Şablon Seçin...</option>
+                            {% for template in templates %}
+                                <option value="{{ template.id }}">{{ template.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="response" id="response" class="form-control" rows="10" 
+                                placeholder="Yanıtınızı buraya yazın..." required></textarea>
+                    </div>
+                    <div class="text-right">
+                        <a href="{% url 'webui:message_list' %}" class="cmn-btn">İptal</a>
+                        <button type="submit" class="cmn-btn">Yanıtı Gönder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.response-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.message-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+.message-details dt {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.message-details dd {
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+.response-form {
+    margin-top: 30px;
+}
+</style>
+
+<script>
+const element = document.getElementById('checkboxId');
+if (element) {
+    element.addEventListener('change', function() {
+        // işlemler
+    });
+}
+
+function loadTemplate() {
+    const templateId = document.getElementById('template').value;
+    if (templateId) {
+        fetch(`/api/templates/${templateId}/`)
+            .then(response => response.json())
+            .then(data => {
+                const responseArea = document.getElementById('response');
+                responseArea.value = data.content;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+
+// Değişkenleri şablona yerleştir
+function replaceVariables(text) {
+    const contact = {
+        name: "{{ contact_form.name }}",
+        email: "{{ contact_form.email }}",
+        phone: "{{ contact_form.phone }}",
+        subject: "{{ contact_form.subject }}",
+        message: "{{ contact_form.message }}"
+    };
+
+    return text.replace(/\{\{(.*?)\}\}/g, function(match, variable) {
+        const key = variable.trim();
+        return contact[key] || match;
+    });
+}
+</script>
+{% endblock %} 

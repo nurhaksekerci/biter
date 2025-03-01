@@ -1,0 +1,119 @@
+{% extends "webui/management/base.html" %}
+
+{% block management_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Blog Yazıları</h3>
+    <a href="{% url 'webui:blog_create' %}" class="cmn-btn">
+        <i class="icofont-plus"></i> Yeni Blog Yazısı
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Görsel</th>
+                <th>Başlık</th>
+                <th>Kategori</th>
+                <th>Yazar</th>
+                <th>Yayın Tarihi</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-image">
+                    {% else %}
+                        <div class="blog-image-placeholder">
+                            <i class="icofont-image"></i>
+                        </div>
+                    {% endif %}
+                </td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.category }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.publish_date|date:"d.m.Y" }}</td>
+                <td>
+                    {% if post.is_active %}
+                        <span class="badge bg-success">Aktif</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Pasif</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="{% url 'webui:blog_edit' post.id %}" class="btn-edit">
+                            <i class="icofont-edit"></i>
+                        </a>
+                        <a href="{% url 'webui:blog_delete' post.id %}" class="btn-delete"
+                           onclick="return confirm('Bu blog yazısını silmek istediğinize emin misiniz?')">
+                            <i class="icofont-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Henüz blog yazısı eklenmemiş.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if posts.has_other_pages %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if posts.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ posts.previous_page_number }}">
+                <i class="icofont-rounded-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        
+        {% for num in posts.paginator.page_range %}
+        <li class="page-item {% if posts.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        
+        {% if posts.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}">
+                <i class="icofont-rounded-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+<style>
+.blog-image {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.blog-image-placeholder {
+    width: 80px;
+    height: 50px;
+    border-radius: 5px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-image-placeholder i {
+    font-size: 24px;
+    color: #b69d74;
+}
+</style>
+{% endblock %} 

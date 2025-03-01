@@ -1,0 +1,83 @@
+{% extends "webui/management/base.html" %}
+
+{% block management_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Banner Listesi</h3>
+    <a href="{% url 'webui:banner_create' %}" class="cmn-btn">
+        <i class="icofont-plus"></i> Yeni Banner
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Görsel</th>
+                <th>Başlık</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for banner in banners %}
+            <tr>
+                <td>
+                    <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="preview-image">
+                </td>
+                <td>{{ banner.title }}</td>
+                <td>
+                    {% if banner.is_active %}
+                        <span class="badge bg-success">Aktif</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Pasif</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="{% url 'webui:banner_edit' banner.id %}" class="btn-edit">
+                            <i class="icofont-edit"></i>
+                        </a>
+                        <a href="{% url 'webui:banner_delete' banner.id %}" class="btn-delete"
+                           onclick="return confirm('Bu banner'ı silmek istediğinize emin misiniz?')">
+                            <i class="icofont-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Henüz banner eklenmemiş.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if banners.has_other_pages %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if banners.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ banners.previous_page_number }}">
+                <i class="icofont-rounded-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        
+        {% for num in banners.paginator.page_range %}
+        <li class="page-item {% if banners.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        
+        {% if banners.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ banners.next_page_number }}">
+                <i class="icofont-rounded-right"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %} 

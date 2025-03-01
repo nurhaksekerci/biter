@@ -3,7 +3,7 @@
 <div class="navbar-area fixed-top">
   <!-- Menu For Mobile Device -->
   <div class="mobile-nav">
-    <a href="{% url 'webui:index' %}" class="logo"><img src="{% static 'assets/img/logo.png' %}" alt="Logo" /></a>
+    <a href="{% url 'webui:index' %}" class="logo"><img height="50" src="{% static 'assets/img/logo.png' %}" alt="Logo" /></a>
   </div>
 
   <!-- Menu For Desktop Device -->
@@ -17,26 +17,64 @@
               <a href="{% url 'webui:index' %}" class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">Ana Sayfa</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">Hakkımızda</a>
+              <a href="{% url 'webui:coming_soon' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">Hakkımızda</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'attorney' %}active{% endif %}">Avukatlarımız</a>
+              <a href="{% url 'webui:coming_soon' %}" class="nav-link {% if request.resolver_match.url_name == 'attorney' %}active{% endif %}">Avukatlarımız</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'practice' %}active{% endif %}">Uzmanlık Alanları</a>
+              <a href="{% url 'webui:coming_soon' %}" class="nav-link {% if request.resolver_match.url_name == 'practice' %}active{% endif %}">Uzmanlık Alanları</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'case_study' %}active{% endif %}">Örnek Davalar</a>
+              <a href="{% url 'webui:coming_soon' %}" class="nav-link {% if request.resolver_match.url_name == 'case_study' %}active{% endif %}">Örnek Davalar</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'webui:not_found' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}">Blog</a>
+              <a href="{% url 'webui:coming_soon' %}" class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}">Blog</a>
             </li>
             <li class="nav-item">
               <a href="#contact" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">İletişim</a>
             </li>
           </ul>
           <div class="side-nav">
-            <a href="{% url 'webui:not_found' %}">Randevu Al</a>
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="icofont-user-alt-7"></i>
+                        {{ user.get_full_name|default:user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        {% if user.is_staff %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'webui:management_dashboard' %}">
+                                <i class="icofont-dashboard"></i> İçerik Yönetimi
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">
+                                <i class="icofont-settings"></i> Admin Panel
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'webui:message_list' %}">
+                                <i class="icofont-envelope"></i> Mesajlar
+                                {% if unread_count > 0 %}
+                                    <span class="badge bg-danger">{{ unread_count }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'webui:logout' %}">
+                                <i class="icofont-logout"></i> Çıkış Yap
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{% url 'webui:login' %}" class="cmn-btn">
+                    <i class="icofont-login"></i> Giriş Yap
+                </a>
+            {% endif %}
           </div>
         </div>
       </nav>
@@ -44,3 +82,99 @@
   </div>
 </div>
 <!-- End Navbar -->
+
+<!-- Header'da uygun bir yere ekleyin -->
+<div class="theme-switch">
+    <input type="checkbox" id="slider" onclick="toggleTheme()" />
+    <label for="slider">Tema Değiştir</label>
+</div>
+
+<style>
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-menu {
+    min-width: 200px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    background: #242323; /* Tema arka plan rengi */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.dropdown-item {
+    padding: 0.8rem 1rem;
+    color: #ffffff; /* Beyaz metin rengi */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s all ease;
+}
+
+.dropdown-item:hover {
+    background-color: #333333;
+    color: #b69d74; /* Tema vurgu rengi */
+}
+
+.dropdown-item i {
+    font-size: 1.1rem;
+    color: #b69d74; /* İkonlar için tema vurgu rengi */
+}
+
+.dropdown-divider {
+    margin: 0.3rem 0;
+    border-color: #333333;
+}
+
+.badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 10px;
+}
+
+.badge.bg-danger {
+    background-color: #b69d74 !important; /* Tema vurgu rengi */
+}
+
+.side-nav .dropdown-toggle {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(182, 157, 116, 0.1); /* Tema vurgu rengi ile uyumlu */
+    transition: 0.3s all ease;
+}
+
+.side-nav .dropdown-toggle:hover {
+    background: rgba(182, 157, 116, 0.2); /* Tema vurgu rengi ile uyumlu */
+    color: #b69d74;
+}
+
+.side-nav .dropdown-toggle i {
+    font-size: 1.2rem;
+    color: #b69d74; /* Tema vurgu rengi */
+}
+
+.dropdown-item.text-danger {
+    color: #b69d74 !important; /* Çıkış butonu rengi */
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: rgba(182, 157, 116, 0.1);
+}
+
+@media (max-width: 991px) {
+    .dropdown-menu {
+        position: fixed !important;
+        top: 60px !important;
+        right: 10px !important;
+        transform: none !important;
+        margin-top: 0;
+    }
+}
+</style>

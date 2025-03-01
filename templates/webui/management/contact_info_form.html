@@ -1,0 +1,70 @@
+{% extends "webui/management/base.html" %}
+
+{% block management_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>{{ title }}</h3>
+    <a href="{% url 'webui:contact_info' %}" class="cmn-btn">
+        <i class="icofont-arrow-left"></i> Geri Dön
+    </a>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label for="address">Adres</label>
+        {{ form.address }}
+    </div>
+
+    <div class="form-group">
+        <label for="map_url">Harita URL</label>
+        {{ form.map_url }}
+        <small class="form-text text-muted">
+            Google Maps'ten alınan iframe veya paylaşım URL'si
+        </small>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="email1">E-posta 1</label>
+                {{ form.email1 }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="email2">E-posta 2 (İsteğe Bağlı)</label>
+                {{ form.email2 }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="phone1">Telefon 1</label>
+                {{ form.phone1 }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="phone2">Telefon 2 (İsteğe Bağlı)</label>
+                {{ form.phone2 }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="custom-control custom-switch">
+            {{ form.is_active }}
+            <label class="custom-control-label" for="id_is_active">Aktif</label>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="cmn-btn">
+            <i class="icofont-save"></i> Kaydet
+        </button>
+    </div>
+</form>
+{% endblock %} 

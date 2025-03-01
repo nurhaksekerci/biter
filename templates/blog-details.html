@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}{{ blog.meta_description }}{% endblock %}
+{% block meta_keywords %}{{ blog.meta_keywords }}{% endblock %}
+{% block og_title %}{{ blog.title }} - Biter Hukuk Bürosu{% endblock %}
+{% block og_description %}{{ blog.meta_description }}{% endblock %}
+{% block meta_author %}{{ blog.author }}{% endblock %}
+
+{% block title %}
+  {{ blog.title }} - Blog Detay
+{% endblock %}
+
+{% block content %}
+<!-- Page Title -->
+<div class="page-title-area title-bg-one">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>{{ blog.title }}</h2>
+                    <ul>
+                        <li><a href="{% url 'webui:index' %}">Ana Sayfa</a></li>
+                        <li><a href="{% url 'webui:blog' %}">Blog</a></li>
+                        <li><span>{{ blog.title }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title -->
+
+<!-- Blog Details -->
+<section class="blog-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <!-- Ana İçerik -->
+            <div class="col-lg-6">
+                <div class="blog-details-item">
+                    {% if blog.image %}
+                    <div class="blog-details-img">
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="img-fluid" loading="lazy">
+                        <div class="blog-meta mt-4">
+                            <ul class="d-flex align-items-center list-unstyled">
+                                <li>
+                                    <i class="icofont-calendar text-primary"></i>
+                                    <span class="ms-2">{{ blog.publish_date|date:"d E Y" }}</span>
+                                </li>
+                                <li class="mx-4">
+                                    <i class="icofont-user-alt-7 text-primary"></i>
+                                    <span class="ms-2">{{ blog.author }}</span>
+                                </li>
+                                <li>
+                                    <i class="icofont-tag text-primary"></i>
+                                    <span class="ms-2">{{ blog.category }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="blog-details-content mt-4">
+                        <h2 class="mb-4">{{ blog.title }}</h2>
+                        <div class="content">
+                            {{ blog.content|safe }}
+                        </div>
+                    </div>
+
+                    <!-- Sosyal Medya Paylaşım -->
+                    <div class="blog-details-social mt-5 pt-4 border-top">
+                        <div class="d-flex align-items-center">
+                            <span class="me-3 fw-bold">Paylaş:</span>
+                            <ul class="list-unstyled d-flex m-0">
+                                <li class="me-2">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                                       target="_blank"
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="icofont-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="me-2">
+                                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.title }}" 
+                                       target="_blank"
+                                       class="btn btn-outline-info btn-sm">
+                                        <i class="icofont-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="me-2">
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ blog.title }}" 
+                                       target="_blank"
+                                       class="btn btn-outline-secondary btn-sm">
+                                        <i class="icofont-linkedin"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://wa.me/?text={{ blog.title }}%20{{ request.build_absolute_uri }}" 
+                                       target="_blank"
+                                       class="btn btn-outline-success btn-sm">
+                                        <i class="icofont-whatsapp"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-6">
+                <!-- Son Yazılar -->
+                {% if recent_posts %}
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0">Son Yazılar</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            {% for post in recent_posts %}
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ post.image.url }}" 
+                                             alt="{{ post.title }}"
+                                             class="rounded"
+                                             loading="lazy">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h4 class="h6 mb-1">
+                                            <a href="{% url 'webui:blog_details' post.id %}" 
+                                               class="text-decoration-none text-dark">
+                                                {{ post.title }}
+                                            </a>
+                                        </h4>
+                                        <small class="text-muted">
+                                            <i class="icofont-calendar"></i>
+                                            {{ post.publish_date|date:"d E Y" }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- İletişim Kartı -->
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h3 class="h5 mb-4">Hukuki Danışmanlık</h3>
+                        <p class="mb-4">Hukuki sorularınız için ücretsiz danışmanlık hizmetimizden faydalanın.</p>
+                        <a href="{% url 'webui:contact' %}" class="btn btn-light">
+                            İLETİŞİME GEÇİN
+                            <i class="icofont-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- İletişim Bilgileri -->
+                {% if contact_info %}
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h3 class="h5 mb-4">İletişim Bilgileri</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 text-primary">
+                                <i class="icofont-location-pin text-primary me-2"></i>
+                                {{ contact_info.address }}
+                            </li>
+                            <li class="mb-3">
+                                <i class="icofont-phone text-primary me-2"></i>
+                                <a href="tel:+{{ contact_info.phone1 }}" class="text-decoration-none">
+                                    {{ contact_info.phone1 }}
+                                </a>
+                            </li>
+                            <li>
+                                <i class="icofont-email text-primary me-2"></i>
+                                <a href="mailto:{{ contact_info.email1 }}" class="text-decoration-none">
+                                    {{ contact_info.email1 }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Blog Details -->
+
+<!-- Custom CSS -->
+<style>
+.blog-meta ul li {
+    font-size: 14px;
+    color: #666;
+}
+
+.blog-details-content .content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.blog-details-content h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.blog-details-social .btn {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    line-height: 35px;
+}
+
+.blog-details-social .btn i {
+    font-size: 16px;
+}
+
+.card-header {
+    background-color: #b69d74 !important;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #b69d74;
+    border-color: #b69d74;
+}
+
+.btn-primary:hover {
+    background-color: #a38a61;
+    border-color: #a38a61;
+}
+
+.text-primary {
+    color: #b69d74 !important;
+}
+
+.bg-primary {
+    background-color: #b69d74 !important;
+}
+
+/* Ana blog görseli için stil */
+.blog-details-img img {
+    width: 100%;
+    height: 600px;  /* Sabit yükseklik */
+    object-fit: cover;  /* Görsel oranını koru */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Yan menüdeki küçük blog görselleri için stil */
+.list-group-item img {
+    width: 100px;  /* Sabit genişlik */
+    height: 70px;  /* Sabit yükseklik */
+    object-fit: cover;  /* Görsel oranını koru */
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* İçerikteki görseller için stil */
+.blog-details-content .content img {
+    max-width: 100%;  /* Maksimum genişlik */
+    height: auto;  /* Otomatik yükseklik */
+    border-radius: 6px;
+    margin: 20px 0;  /* Üst ve alt boşluk */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Mobil cihazlar için responsive ayarlar */
+@media (max-width: 768px) {
+    .blog-details-img img {
+        height: 250px;  /* Mobilde daha küçük yükseklik */
+    }
+    
+    .list-group-item img {
+        width: 80px;  /* Mobilde daha küçük genişlik */
+        height: 60px;  /* Mobilde daha küçük yükseklik */
+    }
+}
+
+/* Tablet cihazlar için responsive ayarlar */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .blog-details-img img {
+        height: 350px;  /* Tablette orta yükseklik */
+    }
+}
+
+/* Görsel hover efektleri */
+.blog-details-img img:hover,
+.list-group-item img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+/* Lazy loading için iskelet yükleme efekti */
+.blog-details-img img,
+.list-group-item img {
+    transition: opacity 0.3s ease;
+}
+
+.blog-details-img img[loading],
+.list-group-item img[loading] {
+    opacity: 0.5;
+    background: #f0f0f0;
+}
+</style>
+{% endblock %} 

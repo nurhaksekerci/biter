@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta_description %}Ankara'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Medeni hukuk, aile hukuku, iş hukuku, eğitim hukuku, ceza hukuku ve siber hukuk alanlarında uzman avukatlarımızla yanınızdayız. Ücretsiz ilk görüşme imkanı.{% endblock %}
+
+{% block meta_keywords %}ankara avukat, medeni hukuk avukatı, aile hukuku, boşanma avukatı, iş hukuku davası, ceza avukatı, siber hukuk danışmanlığı, eğitim hukuku, ücretsiz hukuki danışmanlık, ankara hukuk bürosu{% endblock %}
+
+{% block og_title %}Biter Hukuk Bürosu | Ankara'da Profesyonel Avukatlık Hizmetleri{% endblock %}
+
+{% block og_description %}Ankara'nın güvenilir hukuk bürosu. Medeni hukuk, aile hukuku, iş hukuku, ceza hukuku ve siber hukuk alanlarında 20 yıllık deneyim. Ücretsiz ilk danışmanlık için hemen arayın: 0541 464 0663{% endblock %}
+
+{% block meta_author %}Av. İbrahim Biter - Biter Hukuk Bürosu{% endblock %}
+
+{% block og_type %}website{% endblock %}
+
+{% block twitter_card %}summary_large_image{% endblock %}
+
+{% block canonical_url %}https://www.biterhukuk.com.tr/{% endblock %}
+
 {% block title %}
-  Ana Sayfa - Hukuk Bürosu
+  Ankara Hukuk Bürosu | Biter Hukuk - Profesyonel Avukatlık Hizmetleri
 {% endblock %}
 
 {% block content %}
@@ -80,7 +96,6 @@
               <div class="help-signature">
                 <img src="{% static 'assets/img/home-one/4.png' %}" alt="İmza" />
               </div>
-              <a class="cmn-btn" href="practice.html">Daha Fazla Bilgi</a>
             </div>
           </div>
         </div>
@@ -100,78 +115,19 @@
         <h2>Hukuki Uzmanlık Alanlarımız</h2>
       </div>
       <div class="row justify-content-center">
+        {% for practice in practices %}
         <div class="col-sm-6 col-lg-4">
           <div class="practice-item">
             <div class="practice-icon">
               <i class="flaticon-law"></i>
             </div>
-            <h3>Medeni Hukuk</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
+            <h3>{{practice.title}}</h3>
+            <p>{{practice.description|safe}}</p>
             <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
             <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
           </div>
         </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="practice-item">
-            <div class="practice-icon">
-              <i class="flaticon-family"></i>
-            </div>
-            <h3>Aile Hukuku</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
-            <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
-            <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="practice-item">
-            <div class="practice-icon">
-              <i class="flaticon-inheritance"></i>
-            </div>
-            <h3>İş Hukuku</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
-            <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
-            <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="practice-item">
-            <div class="practice-icon">
-              <i class="flaticon-mortarboard"></i>
-            </div>
-            <h3>Eğitim Hukuku</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
-            <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
-            <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="practice-item">
-            <div class="practice-icon">
-              <i class="flaticon-auction"></i>
-            </div>
-            <h3>Ceza Hukuku</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
-            <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
-            <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="practice-item">
-            <div class="practice-icon">
-              <i class="flaticon-vulnerability"></i>
-            </div>
-            <h3>Siber Hukuku</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea quisquam, expedita excepturi adipisci</p>
-            <a href="practice-details.html">Devamını Oku</a>
-            <img class="practice-shape-one" src="{% static 'assets/img/home-one/7.png' %}" alt="Şekil" />
-            <img class="practice-shape-two" src="{% static 'assets/img/home-one/8.png' %}" alt="Şekil" />
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </section>
@@ -233,36 +189,18 @@
         <h2>Öne Çıkan Dava Örneklerimiz</h2>
       </div>
       <div class="row justify-content-center">
+        {% for case in cases %}
         <div class="col-sm-6 col-lg-4">
           <div class="portfolio-item">
-            <img src="{% static 'assets/img/home-one/portfolio/1.jpg' %}" alt="Portföy" />
+            <img src="{{case.featured_image.url}}" alt="Portföy" />
             <div class="portfolio-inner">
-              <span>Ceza</span>
-              <h3><a href="case-study-details.html">Kritik Cinayet Davası</a></h3>
-              <p>15 Şubat 2024</p>
+              <span>{{case.case_type}}</span>
+              <h3><a href="case-study-details.html">{{case.title}}</a></h3>
+              <p>{{case.start_date|date:"d E Y"}}</p>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="portfolio-item">
-            <img src="{% static 'assets/img/home-one/portfolio/2.jpg' %}" alt="Portföy" />
-            <div class="portfolio-inner">
-              <span>Haklar</span>
-              <h3><a href="case-study-details.html">Çocuk Hakları</a></h3>
-              <p>16 Şubat 2024</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-          <div class="portfolio-item">
-            <img src="{% static 'assets/img/home-one/portfolio/3.jpg' %}" alt="Portföy" />
-            <div class="portfolio-inner">
-              <span>Finans</span>
-              <h3><a href="case-study-details.html">Kara Para Aklama</a></h3>
-              <p>17 Şubat 2024</p>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
       <div class="text-center">
         <a class="cmn-btn" href="case-study.html">Daha Fazla</a>
@@ -391,9 +329,9 @@
               </div>
               <h3>Adres</h3>
               <ul>
-                <li>Bahçelievler Mah. 52. Sk. No: 15/4 Çankaya/ANKARA</li>
+                <li>{{contact_info.address}}</li>
               </ul>
-              <a class="location-link" href="https://www.google.com/maps" target="_blank">Haritada Görüntüle</a>
+              <a class="location-link" href="{{contact_info.map_url}}" target="_blank">Haritada Görüntüle</a>
             </div>
           </div>
 
@@ -406,10 +344,10 @@
               <h3>E-posta</h3>
               <ul>
                 <li>
-                  <a href="mailto:info@biterhukuk.com.tr">info@biterhukuk.com.tr</a>
+                  <a href="mailto:{{contact_info.email1}}">{{contact_info.email1}}</a>
                 </li>
                 <li>
-                  <a href="mailto:av.ibrahimbiter@gmail.com">av.ibrahimbiter@gmail.com</a>
+                  <a href="mailto:{{contact_info.email2}}">{{contact_info.email2}}</a>
                 </li>
               </ul>
             </div>
@@ -423,10 +361,10 @@
               <h3>Telefon</h3>
               <ul>
                 <li>
-                  <a href="tel:+905414640663">+90 541 464 0663</a>
+                  <a href="tel:+{{contact_info.phone1}}">+{{contact_info.phone1}}</a>
                 </li>
                 <li>
-                  <a href="tel:+903122210602">+90 312 221 0602</a>
+                  <a href="tel:+{{contact_info.phone2}}">+{{contact_info.phone2}}</a>
                 </li>
               </ul>
             </div>
@@ -438,6 +376,7 @@
 
     <div class="container-fluid">
       <form id="contactForm">
+        {% csrf_token %}
         <div class="row contact-wrap">
           <div class="col-sm-6 col-lg-6">
             <div class="form-group">
@@ -476,7 +415,10 @@
 
           <div class="col-md-12 col-lg-12">
             <div class="text-center">
-              <button type="submit" class="contact-btn">Davayı Gönder</button>
+              <button type="submit" class="contact-btn">
+                <span class="button-text">Davayı Gönder</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              </button>
             </div>
             <div id="msgSubmit" class="h3 text-center hidden"></div>
             <div class="clearfix"></div>
@@ -495,140 +437,92 @@
         <h2>Son Blog Yazılarımız</h2>
       </div>
       <div class="blog-slider owl-theme owl-carousel">
+        {% for blog in blogs %}
         <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/1.jpg' %}" alt="Blog" /></a>
+          <img height="300" src="{{blog.image.url}}" alt="{{blog.title}}" />
           <div class="blog-inner">
-            <span>Haklar Davası</span>
-            <h3><a href="blog-details.html">Masum İseniz Adalet Sizin İçin</a></h3>
+            <span>{{blog.category}}</span>
+            <h3><a href="{% url 'webui:blog_details' blog.id %}">{{blog.title}}</a></h3>
             <ul>
               <li>
                 <i class="icofont-calendar"></i>
-                20 Şubat 2024
+                {{blog.created_at|date:"d.m.Y"}}
               </li>
               <li>
                 <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
+                <a href="javascript:void(0)">{{blog.author}}</a>
               </li>
             </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
+            <p>{{blog.summary}}</p>
+            <a class="blog-link" href="{% url 'webui:blog_details' blog.id %}">
               Devamını Oku
               <i class="icofont-simple-right"></i>
             </a>
           </div>
         </div>
-        <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/2.jpg' %}" alt="Blog" /></a>
-          <div class="blog-inner">
-            <span>İş Davası</span>
-            <h3><a href="blog-details.html">İşletmeniz Kim Tarafından Zarara Uğratılıyor?</a></h3>
-            <ul>
-              <li>
-                <i class="icofont-calendar"></i>
-                20 Şubat 2024
-              </li>
-              <li>
-                <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
-              </li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
-              Devamını Oku
-              <i class="icofont-simple-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/3.jpg' %}" alt="Blog" /></a>
-          <div class="blog-inner">
-            <span>Ceza Davası</span>
-            <h3><a href="blog-details.html">Trafik Kazası Sonrası Mağdur Kimi Dava Edebilir?</a></h3>
-            <ul>
-              <li>
-                <i class="icofont-calendar"></i>
-                20 Şubat 2024
-              </li>
-              <li>
-                <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
-              </li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
-              Devamını Oku
-              <i class="icofont-simple-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/1.jpg' %}" alt="Blog" /></a>
-          <div class="blog-inner">
-            <span>Haklar Davası</span>
-            <h3><a href="blog-details.html">Masum İseniz Adalet Sizin İçin</a></h3>
-            <ul>
-              <li>
-                <i class="icofont-calendar"></i>
-                20 Şubat 2024
-              </li>
-              <li>
-                <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
-              </li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
-              Devamını Oku
-              <i class="icofont-simple-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/2.jpg' %}" alt="Blog" /></a>
-          <div class="blog-inner">
-            <span>İş Davası</span>
-            <h3><a href="blog-details.html">İşletmeniz Kim Tarafından Zarara Uğratılıyor?</a></h3>
-            <ul>
-              <li>
-                <i class="icofont-calendar"></i>
-                20 Şubat 2024
-              </li>
-              <li>
-                <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
-              </li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
-              Devamını Oku
-              <i class="icofont-simple-right"></i>
-            </a>
-          </div>
-        </div>
-        <div class="blog-item">
-          <a href="blog-details.html"><img src="{% static 'assets/img/home-one/blog/3.jpg' %}" alt="Blog" /></a>
-          <div class="blog-inner">
-            <span>Ceza Davası</span>
-            <h3><a href="blog-details.html">Trafik Kazası Sonrası Mağdur Kimi Dava Edebilir?</a></h3>
-            <ul>
-              <li>
-                <i class="icofont-calendar"></i>
-                20 Şubat 2024
-              </li>
-              <li>
-                <i class="icofont-user-alt-7"></i>
-                <a href="#">John Doe</a>
-              </li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor contratc ut labore.</p>
-            <a class="blog-link" href="blog-details.html">
-              Devamını Oku
-              <i class="icofont-simple-right"></i>
-            </a>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </section>
   <!-- End Blog -->
+
+  <!-- Form işleme script'i -->
+  <script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Form elementleri
+      const form = this;
+      const submitButton = form.querySelector('.contact-btn');
+      const buttonText = submitButton.querySelector('.button-text');
+      const spinner = submitButton.querySelector('.spinner-border');
+      const msgSubmit = document.getElementById('msgSubmit');
+      
+      // Butonu devre dışı bırak ve spinner'ı göster
+      submitButton.disabled = true;
+      buttonText.style.opacity = '0.5';
+      spinner.classList.remove('d-none');
+      
+      // Form verilerini topla
+      const formData = new FormData(form);
+      
+      // AJAX isteği gönder
+      fetch('{% url "webui:contact_form_submit" %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+          },
+          credentials: 'same-origin'
+      })
+      .then(response => response.json())
+      .then(data => {
+          // Mesajı göster
+          msgSubmit.innerHTML = data.message;
+          msgSubmit.className = `h3 text-center alert ${data.status === 'success' ? 'alert-success' : 'alert-danger'}`;
+          
+          // Başarılı ise formu temizle
+          if (data.status === 'success') {
+              form.reset();
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          msgSubmit.innerHTML = 'Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.';
+          msgSubmit.className = 'h3 text-center alert alert-danger';
+      })
+      .finally(() => {
+          // Butonu tekrar aktif et ve spinner'ı gizle
+          submitButton.disabled = false;
+          buttonText.style.opacity = '1';
+          spinner.classList.add('d-none');
+          
+          // 5 saniye sonra mesajı gizle
+          setTimeout(() => {
+              msgSubmit.innerHTML = '';
+              msgSubmit.className = 'h3 text-center hidden';
+          }, 5000);
+      });
+  });
+  </script>
 {% endblock %}

@@ -2,6 +2,7 @@
 <!-- Footer -->
 <footer>
   <!-- Newsletter -->
+  {% if not user.is_authenticated %}
   <div class="newsletter-area">
     <div class="container">
       <img src="{% static 'assets/img/home-one/footer.png' %}" alt="Shape" />
@@ -13,9 +14,10 @@
       </form>
     </div>
   </div>
+  {% endif %}
   <!-- End Newsletter -->
 
-  <div class="container">
+  <div class="container{% if user.is_authenticated %} pt-5 {% endif %}">
     <div class="row justify-content-center">
       <div class="col-sm-6 col-lg-4">
         <div class="footer-item">
@@ -24,16 +26,13 @@
             <p>Profesyonel avukat ekibimiz her zaman size en iyi ve verimli hizmeti sunmak için burada. Firmamız ve hizmetlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.</p>
             <ul>
               <li>
-                <a href="https://www.youtube.com/" target="_blank"><i class="icofont-youtube-play"></i></a>
+                <a href="https://www.linkedin.com/in/ibrahim-biter-5a177a1ba/" target="_blank"><i class="icofont-linkedin"></i></a>
               </li>
               <li>
-                <a href="https://www.facebook.com/" target="_blank"><i class="icofont-facebook"></i></a>
+                <a href="https://www.facebook.com/biterhukuk" target="_blank"><i class="icofont-facebook"></i></a>
               </li>
               <li>
-                <a href="https://www.instagram.com/" target="_blank"><i class="icofont-instagram"></i></a>
-              </li>
-              <li>
-                <a href="https://www.twitter.com/" target="_blank"><i class="icofont-twitter"></i></a>
+                <a href="https://www.instagram.com/ibrahimmbiter" target="_blank"><i class="icofont-instagram"></i></a>
               </li>
             </ul>
           </div>
@@ -124,15 +123,15 @@
             <ul>
               <li>
                 <i class="icofont-location-pin"></i>
-                Bahçelievler Mah. 52. Sk. No: 15/4 Çankaya/ANKARA
+                {{contact_info.address}}
               </li>
               <li>
                 <i class="icofont-ui-call"></i>
-                <a href="tel:+905414640663">+90 541 464 0663</a>
+                <a href="tel:+{{contact_info.phone1}}">+{{contact_info.phone1}}</a>
               </li>
               <li>
                 <i class="icofont-at"></i>
-                <a href="mailto:info@hukukburosu.com">info@hukukburosu.com</a>
+                <a href="mailto:{{contact_info.email1}}">{{contact_info.email1}}</a>
               </li>
             </ul>
           </div>

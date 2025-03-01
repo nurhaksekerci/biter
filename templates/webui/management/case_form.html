@@ -1,0 +1,170 @@
+{% extends "webui/management/base.html" %}
+{% load static %}
+
+{% block management_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>{{ title }}</h3>
+    <a href="{% url 'webui:case_list' %}" class="cmn-btn">
+        <i class="icofont-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group mb-3">
+                        <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                        {{ form.title }}
+                        {% if form.title.help_text %}
+                        <small class="form-text text-muted">{{ form.title.help_text }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="{{ form.summary.id_for_label }}">{{ form.summary.label }}</label>
+                        {{ form.summary }}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                        {{ form.content }}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="{{ form.result.id_for_label }}">{{ form.result.label }}</label>
+                        {{ form.result }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Dava Bilgileri</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="{{ form.case_type.id_for_label }}">{{ form.case_type.label }}</label>
+                                {{ form.case_type }}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                                {{ form.status }}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.client_type.id_for_label }}">{{ form.client_type.label }}</label>
+                                {{ form.client_type }}
+                                {% if form.client_type.help_text %}
+                                <small class="form-text text-muted">{{ form.client_type.help_text }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
+                                {{ form.start_date }}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}</label>
+                                {{ form.end_date }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Medya</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="{{ form.featured_image.id_for_label }}">{{ form.featured_image.label }}</label>
+                                {{ form.featured_image }}
+                                {% if case and case.featured_image %}
+                                <div class="mt-2">
+                                    <img src="{{ case.featured_image.url }}" alt="{{ case.title }}" class="img-thumbnail">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Yayın Ayarları</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <div class="form-check">
+                                    {{ form.is_featured }}
+                                    <label class="form-check-label" for="{{ form.is_featured.id_for_label }}">
+                                        {{ form.is_featured.label }}
+                                    </label>
+                                </div>
+                                {% if form.is_featured.help_text %}
+                                <small class="form-text text-muted">{{ form.is_featured.help_text }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <div class="form-check">
+                                    {{ form.is_public }}
+                                    <label class="form-check-label" for="{{ form.is_public.id_for_label }}">
+                                        {{ form.is_public.label }}
+                                    </label>
+                                </div>
+                                {% if form.is_public.help_text %}
+                                <small class="form-text text-muted">{{ form.is_public.help_text }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.order.id_for_label }}">{{ form.order.label }}</label>
+                                {{ form.order }}
+                                {% if form.order.help_text %}
+                                <small class="form-text text-muted">{{ form.order.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">SEO</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="{{ form.meta_title.id_for_label }}">{{ form.meta_title.label }}</label>
+                                {{ form.meta_title }}
+                                {% if form.meta_title.help_text %}
+                                <small class="form-text text-muted">{{ form.meta_title.help_text }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="{{ form.meta_description.id_for_label }}">{{ form.meta_description.label }}</label>
+                                {{ form.meta_description }}
+                                {% if form.meta_description.help_text %}
+                                <small class="form-text text-muted">{{ form.meta_description.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="cmn-btn">
+                    <i class="icofont-save"></i> Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{ form.media }}
+{% endblock %} 

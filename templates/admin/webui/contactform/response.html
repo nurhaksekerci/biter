@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    .message-details {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .message-details dt {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .message-details dd {
+      margin-bottom: 15px;
+      margin-left: 0;
+    }
+    .response-form {
+      background: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .response-form textarea {
+      width: 100%;
+      min-height: 200px;
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+    .submit-row {
+      text-align: right;
+      padding: 20px 0;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <div class="message-details">
+    <h2>İletişim Formu Detayları</h2>
+    <dl>
+      <dt>Gönderen:</dt>
+      <dd>{{ contact_form.name }} ({{ contact_form.email }})</dd>
+      
+      <dt>Telefon:</dt>
+      <dd>{{ contact_form.phone }}</dd>
+      
+      <dt>Konu:</dt>
+      <dd>{{ contact_form.subject }}</dd>
+      
+      <dt>Tarih:</dt>
+      <dd>{{ contact_form.created_at|date:"d.m.Y H:i" }}</dd>
+      
+      <dt>Mesaj:</dt>
+      <dd>{{ contact_form.message|linebreaks }}</dd>
+    </dl>
+  </div>
+
+  <div class="response-form">
+    <h2>Yanıt Formu</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-row">
+        <textarea name="response" placeholder="Yanıtınızı buraya yazın..." required></textarea>
+      </div>
+      <div class="submit-row">
+        <input type="submit" value="Yanıtı Gönder" class="default" />
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %} 

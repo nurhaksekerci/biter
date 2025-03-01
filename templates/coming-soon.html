@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}Biter Hukuk Bürosu'nun yeni web sayfası yakında hizmetinizde. Profesyonel hukuki danışmanlık ve avukatlık hizmetlerimiz için şimdilik 0541 464 0663 numaralı telefondan bize ulaşabilirsiniz.{% endblock %}
+
+{% block meta_keywords %}yakında, biter hukuk bürosu, ankara avukat, hukuki danışmanlık, ücretsiz danışmanlık{% endblock %}
+
+{% block og_title %}Yakında Hizmetinizdeyiz | Biter Hukuk Bürosu{% endblock %}
+
+{% block og_description %}Biter Hukuk Bürosu web sitesi yapım aşamasındadır. Hukuki danışmanlık için 0541 464 0663 numaralı telefondan bize ulaşabilirsiniz.{% endblock %}
+
+{% block meta_author %}{{ block.super }}{% endblock %}
+
+{% block og_type %}website{% endblock %}
+
+{% block twitter_card %}summary{% endblock %}
+
+{% block title %}Yakında Hizmetinizdeyiz | Biter Hukuk Bürosu - Ankara{% endblock %}
+
+{% block content %}
+    <section class="error-area my-5">
+        <div class="error-item">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="error-text">
+                        <h1>Yakında!</h1>
+                        <p>Üzgünüz! Bu Sayfa Henüz Yapılmadı.</p>
+                        <span>Aradığınız sayfa mevcut değil. Tamamlanmamış veya silinmiş olabilir.</span>
+                        <a href="{% url 'webui:index' %}">Ana Sayfaya Dön</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

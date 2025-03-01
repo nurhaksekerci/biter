@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="page-title-area title-bg-one">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>İletişim Formları</h2>
+                    <ul>
+                        <li><a href="{% url 'webui:index' %}">Ana Sayfa</a></li>
+                        <li><span>İletişim Formları</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="messages-area ptb-100">
+    <div class="container">
+        <div class="messages-table">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tarih</th>
+                            <th>Gönderen</th>
+                            <th>Konu</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for message in messages %}
+                        <tr {% if not message.is_read %}class="unread"{% endif %}>
+                            <td>#{{ message.id }}</td>
+                            <td>{{ message.created_at|date:"d.m.Y H:i" }}</td>
+                            <td>
+                                {{ message.name }}<br>
+                                <small>{{ message.email }}</small>
+                            </td>
+                            <td>{{ message.subject }}</td>
+                            <td>
+                                {% if message.response %}
+                                    <span class="badge badge-success">Yanıtlandı</span>
+                                {% else %}
+                                    <span class="badge badge-warning">Bekliyor</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#messageModal{{ message.id }}">
+                                    Detay
+                                </button>
+                                {% if not message.response %}
+                                    <a href="{% url 'webui:message_response' message.id %}" class="btn btn-primary btn-sm">Yanıtla</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        
+                        <!-- Mesaj Detay Modal -->
+                        <div class="modal fade" id="messageModal{{ message.id }}" tabindex="-1" aria-labelledby="messageModalLabel{{ message.id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="messageModalLabel{{ message.id }}">Mesaj Detayı #{{ message.id }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        <div class="message-details">
+                                            <dl>
+                                                <dt>Gönderen:</dt>
+                                                <dd>{{ message.name }} ({{ message.email }})</dd>
+                                                
+                                                <dt>Telefon:</dt>
+                                                <dd>{{ message.phone }}</dd>
+                                                
+                                                <dt>Konu:</dt>
+                                                <dd>{{ message.subject }}</dd>
+                                                
+                                                <dt>Tarih:</dt>
+                                                <dd>{{ message.created_at|date:"d.m.Y H:i" }}</dd>
+                                                
+                                                <dt>Mesaj:</dt>
+                                                <dd>{{ message.message|linebreaks }}</dd>
+                                                
+                                                {% if message.response %}
+                                                <dt>Yanıt:</dt>
+                                                <dd>
+                                                    {{ message.response|linebreaks }}
+                                                    <small class="text-muted">
+                                                        ({{ message.response_date|date:"d.m.Y H:i" }})
+                                                    </small>
+                                                </dd>
+                                                {% endif %}
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Henüz mesaj bulunmuyor.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            {% if messages.has_other_pages %}
+            <nav class="pagination-area">
+                <ul class="pagination justify-content-center">
+                    {% if messages.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ messages.previous_page_number }}">
+                            <i class="icofont-rounded-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for num in messages.paginator.page_range %}
+                    <li class="page-item {% if messages.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    
+                    {% if messages.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ messages.next_page_number }}">
+                            <i class="icofont-rounded-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+.messages-table {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.unread {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.message-details dt {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.message-details dd {
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+.badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+.badge-success {
+    background-color: #28a745;
+}
+.badge-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-body .message-details {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Modal'ı etkinleştir
+    $('.btn-info').on('click', function() {
+        var targetModal = $(this).data('target');
+        $(targetModal).modal('show');
+    });
+});
+</script>
+{% endblock %} 

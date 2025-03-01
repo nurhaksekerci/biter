@@ -80,8 +80,8 @@ jQuery(function ($) {
 		});
 	});
 
-	// Nice Select JS
-	$('select').niceSelect();
+	// Nice Select'i sadece data-nice-select attribute'u olan select'lerde başlat
+	$('select[data-nice-select]').niceSelect();
 
 	// Subscribe form
 	$(".newsletter-form").validator().on("submit", function (event) {
@@ -172,6 +172,12 @@ jQuery(function ($) {
 function setTheme(themeName) {
     localStorage.setItem('lyzo_theme', themeName);
     document.documentElement.className = themeName;
+    
+    // Slider checkbox'ını güvenli şekilde güncelle
+    const slider = document.getElementById('slider');
+    if (slider) {
+        slider.checked = (themeName === 'theme-light');
+    }
 }
 
 // function to toggle between light and dark theme
@@ -185,11 +191,6 @@ function toggleTheme() {
 
 // Immediately invoked function to set the theme on initial load
 (function () {
-    if (localStorage.getItem('lyzo_theme') === 'theme-dark') {
-        setTheme('theme-dark');
-        document.getElementById('slider').checked = false;
-    } else {
-        setTheme('theme-light');
-      document.getElementById('slider').checked = true;
-    }
+    const savedTheme = localStorage.getItem('lyzo_theme') || 'theme-light';
+    setTheme(savedTheme);
 })();

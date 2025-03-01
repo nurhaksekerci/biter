@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_description %}Ankara'da bulunan hukuk büromuz ile iletişime geçin. Ücretsiz ilk görüşme için randevu alın. Hukuki danışmanlık ve avukatlık hizmetleri için bize ulaşın.{% endblock %}
+
+{% block meta_keywords %}ankara avukat iletişim, hukuk bürosu iletişim, ücretsiz hukuki danışmanlık, avukat randevu, hukuk bürosu telefon, ankara avukat adres{% endblock %}
+
+{% block og_title %}İletişim - Biter Hukuk Bürosu{% endblock %}
+
+{% block title %}İletişim - Biter Hukuk Bürosu{% endblock %}
+
+{% block content %}
+<!-- Page Title -->
+<div class="page-title-area title-bg-one">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>İletişim</h2>
+                    <ul>
+                        <li><a href="{% url 'webui:index' %}">Ana Sayfa</a></li>
+                        <li><span>İletişim</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title -->
+
+<!-- Contact Form -->
+<div class="contact-form pb-100">
+    <!-- Location -->
+    <div class="loaction-area">
+        <div class="container">
+            <div class="row location-bg">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="flaticon-pin"></i>
+                            <img src="{% static 'assets/img/home-one/12.png' %}" alt="Şekil" />
+                        </div>
+                        <h3>Adres</h3>
+                        <ul>
+                            <li>{{contact_info.address}}</li>
+                        </ul>
+                        <a class="location-link" href="{{contact_info.map_url}}" target="_blank">
+                            Haritada Görüntüle
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4">
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="flaticon-email"></i>
+                            <img src="{% static 'assets/img/home-one/12.png' %}" alt="Şekil" />
+                        </div>
+                        <h3>E-posta</h3>
+                        <ul>
+                            <li>
+                                <a href="mailto:{{contact_info.email1}}">{{contact_info.email1}}</a>
+                            </li>
+                            {% if contact_info.email2 %}
+                            <li>
+                                <a href="mailto:{{contact_info.email2}}">{{contact_info.email2}}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-4">
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="flaticon-call"></i>
+                            <img src="{% static 'assets/img/home-one/12.png' %}" alt="Şekil" />
+                        </div>
+                        <h3>Telefon</h3>
+                        <ul>
+                            <li>
+                                <a href="tel:+{{contact_info.phone1}}">+{{contact_info.phone1}}</a>
+                            </li>
+                            {% if contact_info.phone2 %}
+                            <li>
+                                <a href="tel:+{{contact_info.phone2}}">+{{contact_info.phone2}}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Location -->
+
+    <!-- Contact Form -->
+    <div class="container-fluid">
+        <div class="section-title">
+            <span>İLETİŞİM FORMU</span>
+            <h2>Bize Ulaşın</h2>
+            <p>Hukuki danışmanlık için formu doldurun, size en kısa sürede dönüş yapalım.</p>
+        </div>
+
+        <form id="contactForm" class="contact-form-wrapper bg-dark text-white">
+            {% csrf_token %}
+            <div class="row contact-wrap">
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <input type="text" 
+                               name="name" 
+                               id="name" 
+                               class="form-control" 
+                               required 
+                               data-error="Lütfen adınızı giriniz" 
+                               placeholder="Adınız Soyadınız" />
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <input type="email" 
+                               name="email" 
+                               id="email" 
+                               class="form-control" 
+                               required 
+                               data-error="Lütfen e-posta adresinizi giriniz" 
+                               placeholder="E-posta Adresiniz" />
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <input type="text" 
+                               name="phone_number" 
+                               id="phone_number" 
+                               required 
+                               data-error="Lütfen telefon numaranızı giriniz" 
+                               class="form-control" 
+                               placeholder="Telefon Numaranız" />
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <input type="text" 
+                               name="msg_subject" 
+                               id="msg_subject" 
+                               class="form-control" 
+                               required 
+                               data-error="Lütfen konu giriniz" 
+                               placeholder="Konu" />
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="form-group">
+                        <textarea name="message" 
+                                  class="form-control" 
+                                  id="message" 
+                                  cols="30" 
+                                  rows="8" 
+                                  required 
+                                  data-error="Mesajınızı yazınız" 
+                                  placeholder="Mesajınız"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12">
+                    <div class="text-center">
+                        <button type="submit" class="contact-btn">
+                            <span class="button-text">Gönder</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div id="msgSubmit" class="h3 text-center hidden"></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Contact Form -->
+
+<!-- Form işleme script'i -->
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Form elementleri
+    const form = this;
+    const submitButton = form.querySelector('.contact-btn');
+    const buttonText = submitButton.querySelector('.button-text');
+    const spinner = submitButton.querySelector('.spinner-border');
+    const msgSubmit = document.getElementById('msgSubmit');
+    
+    // Butonu devre dışı bırak ve spinner'ı göster
+    submitButton.disabled = true;
+    buttonText.style.opacity = '0.5';
+    spinner.classList.remove('d-none');
+    
+    // Form verilerini topla
+    const formData = new FormData(form);
+    
+    // AJAX isteği gönder
+    fetch('{% url "webui:contact_form_submit" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Mesajı göster
+        msgSubmit.innerHTML = data.message;
+        msgSubmit.className = `h3 text-center alert ${data.status === 'success' ? 'alert-success' : 'alert-danger'}`;
+        
+        // Başarılı ise formu temizle
+        if (data.status === 'success') {
+            form.reset();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        msgSubmit.innerHTML = 'Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.';
+        msgSubmit.className = 'h3 text-center alert alert-danger';
+    })
+    .finally(() => {
+        // Butonu tekrar aktif et ve spinner'ı gizle
+        submitButton.disabled = false;
+        buttonText.style.opacity = '1';
+        spinner.classList.add('d-none');
+        
+        // 5 saniye sonra mesajı gizle
+        setTimeout(() => {
+            msgSubmit.innerHTML = '';
+            msgSubmit.className = 'h3 text-center hidden';
+        }, 5000);
+    });
+});
+</script>
+
+<style>
+.contact-form-wrapper {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title span {
+    color: #b69d74;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.section-title p {
+    color: #666;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.location-item {
+    transition: transform 0.3s ease;
+}
+
+.location-item:hover {
+    transform: translateY(-5px);
+}
+
+.map-area iframe {
+    transition: transform 0.3s ease;
+}
+
+.map-area iframe:hover {
+    transform: scale(1.01);
+}
+</style>
+{% endblock %} 

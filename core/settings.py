@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webui',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'webui.middleware.LoginPageMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -63,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'webui.context_processors.unread_messages',
             ],
         },
     },
@@ -116,21 +120,41 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'  
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail için
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'info@biterhukuk.com.tr'  # Gmail adresiniz
+EMAIL_HOST_PASSWORD = 'your-app-password'  # Gmail uygulama şifreniz
+DEFAULT_FROM_EMAIL = 'Biter Hukuk Bürosu <info@biterhukuk.com.tr>'
+CONTACT_FORM_EMAIL = 'info@biterhukuk.com.tr'  # Formların gönderileceği adres
+
+# Site settings
+SITE_URL = 'https://www.biterhukuk.com.tr'
+OFFICE_ADDRESS = 'Kızılırmak Mahallesi Dumlupınar Bulvarı No: 3 Çankaya/Ankara'
+LOGO_URL = f"{SITE_URL}/static/assets/img/logo.png"
+
+LOGIN_URL = 'webui:login'
+LOGIN_REDIRECT_URL = 'webui:message_list'
+
+# CKEditor ayarları
+CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 
 
